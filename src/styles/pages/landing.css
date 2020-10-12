@@ -1,0 +1,78 @@
+#page-landing {
+    background: linear-gradient(329.54deg, #29B6D1 0%, #00C7C7 100%);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#page-landing .content-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    height: 100%;
+    max-height: 680px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-between;
+    background: url('../../images/landing.svg') no-repeat 80% center/contain;
+}
+
+#page-landing .location {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+    line-height: 34px;
+    text-align: right;
+}
+
+#page-landing .location strong {
+    font-weight: 800;
+}
+
+#page-landing .enter-app {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+#page-landing main {
+    max-width: 350px;
+}
+
+#page-landing main h1 {
+    font-size: 76px;
+    line-height: 1;
+    font-weight: 900;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#page-landing main p {
+    margin-top: 40px;
+    line-height: 34px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+#page-landing .enter-app {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 80px;
+    height: 80px;
+    background: #ffd666;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+#page-landing .enter-app:hover {
+    background: #96FEFF;
+}
