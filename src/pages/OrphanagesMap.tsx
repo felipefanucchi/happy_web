@@ -12,10 +12,11 @@ import "../styles/pages/orphanages-map.css";
 import { happyMapIcon } from "../utils/mapIcon";
 import api from "../services/api";
 import OrphanageType from "../interfaces/Orphanage";
+import { getPosition } from "../utils/getPosition";
 
 function OrphanagesMap() {
   const [orphanages, setOrphanages] = useState<OrphanageType[]>([]);
-  const [currentLocation, setCurrentLocation] = useState<LatLngTuple>([0, 0]);
+  const [position, setPosition] = useState<LatLngTuple>([0, 0]);
 
   useEffect(() => {
     loadOrphanages();
@@ -28,24 +29,10 @@ function OrphanagesMap() {
     });
   }
 
-  function getCurrentLocation() {
-    if (!navigator.geolocation) {
-      alert(
-        "your browser does not support geolocation, please, use Chrome or some modern browser."
-      );
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setCurrentLocation([
-          position.coords.latitude,
-          position.coords.longitude,
-        ]);
-      },
-      (error) => {
-        alert("Erro = " + error.code + " - " + error.message);
-      }
-    );
+  async function getCurrentLocation() {
+    const {latitude, longitude} = await getPosition();
+    
+    setPosition([latitude, longitude]);
   }
 
   return (
@@ -65,7 +52,7 @@ function OrphanagesMap() {
       </aside>
 
       <Map
-        center={currentLocation}
+        center={position}
         zoom={15}
         style={{ width: "100%", height: "100%" }}
       >
