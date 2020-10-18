@@ -38,7 +38,7 @@ export default function Orphanage() {
       <Sidebar />
       <main>
         <div className="orphanage-details">
-          <img src={(orphanage.images.length && orphanage.images[currentImageIndex].url) || DEFAULT_IMAGE} alt={orphanage.name} />
+          <img src={(orphanage.images.length) ? orphanage.images[currentImageIndex].url : DEFAULT_IMAGE} alt={orphanage.name} />
 
           <div className="images">
             { orphanage.images.map((image, index: number) => (
