@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { Map, Marker, TileLayer } from 'react-leaflet';
-import { FiPlus } from "react-icons/fi";
+import { FiPlus, FiX } from "react-icons/fi";
 import{ LeafletMouseEvent, LatLngTuple } from 'leaflet';
 import { useHistory } from "react-router-dom";
 
@@ -79,6 +79,17 @@ export default function CreateOrphanage() {
     setPreviewImages(selectedImagesPreview);
   }
 
+  function handleRemovePreviewImage(index: number) {
+    function removeImage(_: File | string, currentImageIndex: number) {
+      return currentImageIndex !== index;
+    }
+
+    const filter = (imageArray: any[]) => imageArray.filter(removeImage);
+
+    setPreviewImages(filter(previewImages));
+    setImages(filter(images));
+  }
+
   return (
     <div id="page-create-orphanage">
       <Sidebar />
@@ -121,14 +132,15 @@ export default function CreateOrphanage() {
             <div className="input-block">
               <label htmlFor="images">Fotos</label>
 
-              <div className="uploaded-image">
-
-              </div>
-
               <div className="images-container">
-                { previewImages.map(image => {
+                { previewImages.map((image, index) => {
                   return (
-                    <img key={image} src={image} alt={name}/>
+                    <div className="image">
+                      <img key={image} src={image} alt={name}/>
+                      <span className="close" onClick={() => handleRemovePreviewImage(index)}>
+                       <FiX color="#15b6d6" size={24} />
+                      </span>
+                    </div>
                   );
                 }) }
 

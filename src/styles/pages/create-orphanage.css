@@ -99,6 +99,27 @@ form.create-orphanage-form .input-block .new-image {
   align-items: center;
 }
 
+form.create-orphanage-form .input-block .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: #F5F8FA;
+  border: 1px solid #D3E2E5;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+  cursor: pointer;
+}
+
+form.create-orphanage-form .input-block .image {
+  position: relative;
+}
+
 form.create-orphanage-form .input-block .images-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -108,8 +129,9 @@ form.create-orphanage-form .input-block .images-container {
 form.create-orphanage-form .input-block img{
   width: 127px;
   height: 127px;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 20px;
+  border: 1px solid #D3E2E5;
 }
 
 form.create-orphanage-form .input-block .button-select {
