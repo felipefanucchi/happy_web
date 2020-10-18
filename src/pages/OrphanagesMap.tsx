@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiPlus, FiArrowRight } from 'react-icons/fi';
 import { LatLngTuple } from 'leaflet';
@@ -10,9 +10,21 @@ import mapMarker from '../images/map-marker.svg';
 // Styles
 import '../styles/pages/orphanages-map.css';
 import { happyMapIcon } from '../utils/mapIcon';
+import api from '../services/api';
+import Orphanage from '../interfaces/Orphanages';
+
+const initialPosition: LatLngTuple = [-23.4686417, -46.5393964];
 
 function OrphanagesMap() {
-    const position: LatLngTuple = [-23.4690849, -46.5410953];
+    const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
+
+    useEffect(loadOrphanages, []);
+
+    function loadOrphanages() {
+        api.get('orphanages').then(response => {
+            setOrphanages(response.data);
+        });
+    }
 
     return (
         <div id="page-map">
@@ -30,26 +42,28 @@ function OrphanagesMap() {
                 </footer>
             </aside>
 
-            <Map 
-                center={position}
-                zoom={17}
-                style={{width: '100%', height: '100%'}}
-            >
-                <TileLayer 
-                    url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-                />
-                <Marker 
-                    position={position}
-                    icon={happyMapIcon}
-                >
-                    <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
-                        Lar das meninas
-                        <Link to="/orfanatos/:id">
-                            <FiArrowRight size={20} color="#FFF"></FiArrowRight>
-                        </Link>
-                    </Popup>
-                </Marker>
-            </Map>
+                <Map 
+                    center={initialPosition}
+                    zoom={15}
+                    style={{width: '100%', height: '100%'}}>
+
+                    <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
+
+                    {orphanages.map((orphanage: Orphanage ) => (
+                    <Marker
+                        key={orphanage.id}
+                        position={[orphanage.latitude, orphanage.longitude]}
+                        icon={happyMapIcon}>
+
+                        <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
+                            {orphanage.name}
+                            <Link to={`/orfanatos/${orphanage.id}`}>
+                                <FiArrowRight size={20} color="#FFF"></FiArrowRight>
+                            </Link>
+                        </Popup>
+                    </Marker>
+                    ))}
+                </Map>
 
             <Link to="/orfanatos/criar" className="create-orphanage">
                 <FiPlus size={32} color="#FFF" />
