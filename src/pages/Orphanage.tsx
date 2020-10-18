@@ -14,7 +14,7 @@ import OrphanageType from "../interfaces/Orphanage";
 import { useParams } from "react-router-dom";
 import OrphanageParams from "../interfaces/OrphanageParams";
 
-const DEFAULT_IMAGE = "https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg";
+const DEFAULT_IMAGE = "https://increasify.com.au/wp-content/uploads/2016/08/default-image.png";
 
 export default function Orphanage() {
   const params = useParams<OrphanageParams>();
